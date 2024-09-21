@@ -1,0 +1,36 @@
+import time
+
+class IncrementalGame:
+    def __init__(self):
+        self.resources = 0  # Starting amount of resources (e.g., gold)
+        self.resource_per_second = 1  # Starting rate of resource collection
+        self.upgrade_cost = 10  # Cost of the first upgrade
+    
+    def collect_resources(self):
+        # This function increases resources based on resource_per_second
+        self.resources += self.resource_per_second
+        print(f"Resources: {self.resources}")
+    
+    def upgrade(self):
+        # Function to buy an upgrade
+        if self.resources >= self.upgrade_cost:
+            self.resources -= self.upgrade_cost
+            self.resource_per_second += 1  # Increase resource rate
+            self.upgrade_cost *= 2  # Make upgrades more expensive
+            print(f"Upgraded! New rate: {self.resource_per_second} resources per second")
+        else:
+            print("Not enough resources for upgrade.")
+    
+    def run_game(self):
+        # Main game loop
+        while True:
+            self.collect_resources()
+            time.sleep(1)  # 1 second interval
+            
+            # To simulate user buying an upgrade every 10 seconds
+            if self.resources >= self.upgrade_cost:
+                self.upgrade()
+
+# Run the game
+game = IncrementalGame()
+game.run_game()
